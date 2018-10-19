@@ -46,13 +46,10 @@ public class FreeFallViewTest {
 
     @Test
     public void testMain() {
-        Thread thread = new Thread();
-        System.out.println("main");
-        String[] args = null;
-        this.instance.main(args);
+        FreeFallView.main(null);
         this.instance.freeFallAdapter.on();
         try {
-            Thread.sleep(16000);
+            Thread.sleep(20000);
         } catch (InterruptedException ex) {
             Logger.getLogger(FreeFallViewTest.class.getName()).log(Level.SEVERE, null, ex);
         }

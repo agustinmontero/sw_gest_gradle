@@ -6,7 +6,9 @@ import Views.DJViewAppSelector;
 import Adapter.FreeFallAdapter;
 import Interfaces.FreeFallModelInterface;
 import Interfaces.ViewInterface;
-import javax.swing.JOptionPane;
+
+import javax.swing.*;
+import java.awt.*;
 
 
 public class FreeFallController implements ControllerInterface{
@@ -71,7 +73,15 @@ public class FreeFallController implements ControllerInterface{
         try {
             model.setAltitude(bpm);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Invalid Data! Try again..", null, JOptionPane.ERROR_MESSAGE);
+            final int closeDelay = 5000;
+            final JLabel label = new JLabel();
+            label.setText("Invalid Data! Try again..");
+            new Timer(closeDelay, e1 -> {
+                ((Timer) e1.getSource()).stop();
+                Window win = SwingUtilities.getWindowAncestor(label);
+                win.dispose();
+            }){{setInitialDelay(closeDelay);}}.start();
+            JOptionPane.showMessageDialog(null, label);
         }
     }
     
