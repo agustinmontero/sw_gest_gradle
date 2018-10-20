@@ -20,6 +20,13 @@ dependencies {
     compile 'net.java.dev.beansbinding:beansbinding:1.2.1'
 }
 
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
 jacocoTestReport {
     reports {
         html.enabled = true
@@ -41,11 +48,4 @@ findbugs {
 
 pmd {
     ignoreFailures = true
-}
-
-tasks.withType(FindBugs) {
-    reports {
-        xml.enabled = false
-        html.enabled = true
-    }
 }
