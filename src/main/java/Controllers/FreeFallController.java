@@ -3,7 +3,6 @@ package Controllers;
 import Adapter.FreeFallAdapter;
 import Interfaces.ControllerInterface;
 import Interfaces.FreeFallModelInterface;
-import Interfaces.ViewInterface;
 import Views.DJView;
 
 import javax.swing.*;
@@ -13,7 +12,7 @@ import java.awt.*;
 public class FreeFallController implements ControllerInterface{
     
     private FreeFallModelInterface model;
-    private ViewInterface view;
+    private DJView view;
 
     public FreeFallController(FreeFallModelInterface model) {
         this.model = model;        
@@ -24,13 +23,7 @@ public class FreeFallController implements ControllerInterface{
         view.enableStartMenuItem();
     }
 
-    public FreeFallController(FreeFallModelInterface model, ViewInterface view) {
-        this.model = model;
-        this.view = view;
-        this.updateControls();
-    }
-    
-    
+
     @Override
     public void start() {
         model.on();
@@ -72,10 +65,4 @@ public class FreeFallController implements ControllerInterface{
         }
     }
 
-    private void updateControls(){
-        this.view.disableStopMenuItem();
-        this.view.enableStartMenuItem();
-        this.model.initialize();
-    }
-    
 }

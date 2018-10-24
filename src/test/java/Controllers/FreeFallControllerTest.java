@@ -16,20 +16,13 @@ import static org.junit.Assert.*;
 public class FreeFallControllerTest {
     
     private FreeFallModel model;
-    private FreeFallController instance;
+    private FreeFallController fFallContInstance;
     
     public FreeFallControllerTest() {
         model = new FreeFallModel();
-        instance = new FreeFallController(model);
+        fFallContInstance = new FreeFallController(model);
     }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
+
     
     @Before
     public void setUp() {
@@ -41,28 +34,25 @@ public class FreeFallControllerTest {
 
     @Test
     public void testStart() {
-        System.out.println("start");
-        instance.start();
+        fFallContInstance.start();
     }
 
     @Test
     public void testStop() {
-        System.out.println("stop");
-        instance.stop();
+        fFallContInstance.stop();
     }
 
     @Test
     public void testSetBPM(){
-        System.out.println("setBPM");
         int bpm = 20;
-        instance.setBPM(bpm);
+        fFallContInstance.setBPM(bpm);
         assertEquals(bpm, model.getAltitude());
     }
     
     @Test
     public void testSetBPM2(){
         int bpm = -20;
-        instance.setBPM(bpm);
+        fFallContInstance.setBPM(bpm);
         assertNotSame(bpm, model.getAltitude());
     }
 }

@@ -73,25 +73,13 @@ public class FreeFallView extends javax.swing.JFrame implements BPMObserver, Bea
         jTextFieldHigh.setToolTipText("");
 
         jButtonSetHigh.setText("Set High");
-        jButtonSetHigh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSetHighActionPerformed(evt);
-            }
-        });
+        jButtonSetHigh.addActionListener(this::jButtonSetHighActionPerformed);
 
         jButtonStart.setText("Start!");
-        jButtonStart.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonStartActionPerformed(evt);
-            }
-        });
+        jButtonStart.addActionListener(this::jButtonStartActionPerformed);
 
         jButtonMass.setText("Set Mass");
-        jButtonMass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonMassActionPerformed(evt);
-            }
-        });
+        jButtonMass.addActionListener(this::jButtonMassActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
