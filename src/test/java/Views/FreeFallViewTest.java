@@ -1,17 +1,17 @@
 package Views;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 public class FreeFallViewTest {
     
-    private FreeFallView instance;
+    private FreeFallView freeFallViewInstance;
     private final int HIGH;
     private final double MASS;
     private final double GRAV;
@@ -19,63 +19,52 @@ public class FreeFallViewTest {
     public FreeFallViewTest() {
         this.HIGH = 950;
         this.MASS = 2.3;
-        instance = new FreeFallView();
-        this.instance.freeFallAdapter.setBPM(HIGH);
-        this.instance.setInitialHigh(HIGH);        
-        this.instance.freeFallAdapter.setMass(MASS);
-        this.instance.setMass(MASS);
-        GRAV = this.instance.model.getGravity();
+        freeFallViewInstance = new FreeFallView();
+        GRAV = this.freeFallViewInstance.model.getGravity();
     }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
+
     @Before
     public void setUp() {
     }
     
     @After
     public void tearDown() {
-        this.instance.freeFallAdapter.off();
+        this.freeFallViewInstance.freeFallAdapter.off();
     }
 
-    @Test
+    @Test(timeout = 25000)
     public void testMain() {
         FreeFallView.main(null);
-        this.instance.freeFallAdapter.on();
+        //this.freeFallViewInstance.freeFallAdapter.on();
+        freeFallViewInstance.jTextFieldHigh.setText(String.valueOf(HIGH));
+        freeFallViewInstance.jButtonSetHigh.doClick();
+        freeFallViewInstance.jTextFieldMass.setText(String.valueOf(MASS));
+        freeFallViewInstance.jButtonMass.doClick();
+        this.freeFallViewInstance.jButtonStart.doClick();
+
         try {
             Thread.sleep(20000);
         } catch (InterruptedException ex) {
             Logger.getLogger(FreeFallViewTest.class.getName()).log(Level.SEVERE, null, ex);
         }
-        int totalEnergy = this.instance.model.getTotalEnergy();
-        int kinetic = this.instance.model.getKineticEn();
-        int t = (int) (MASS*GRAV*HIGH);        
+        int totalEnergy = this.freeFallViewInstance.model.getTotalEnergy();
+        int kinetic = this.freeFallViewInstance.model.getKineticEn();
+        int t = (int) (MASS*GRAV*HIGH);
         assertEquals(t, totalEnergy);
         assertEquals(t , kinetic);
-        /*String time;
-        time = this.instance.model.getTime();
-        assertEquals(time, "13");*/
     }
     
     @Test(expected = NumberFormatException.class)
     public void badHighTest(){
-        System.out.println("badHigh");
         int badHigh = -10;
-        this.instance.freeFallAdapter.setBPM(badHigh);
-        this.instance.model.setAltitude(badHigh);        
+        this.freeFallViewInstance.freeFallAdapter.setBPM(badHigh);
+        /*this.freeFallViewInstance.jTextFieldHigh.setText(String.valueOf(badHigh));
+        this.freeFallViewInstance.jButtonSetHigh.doClick();*/
     }
     
     @Test(expected = NumberFormatException.class)
     public void badMassTest(){
-        System.out.println("badMassTest");
         double badMass = -2.5;
-        this.instance.freeFallAdapter.setMass(badMass);
-        this.instance.model.setMass(badMass);
+        this.freeFallViewInstance.freeFallAdapter.setMass(badMass);
     }
 }

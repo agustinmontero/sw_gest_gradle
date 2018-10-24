@@ -1,11 +1,10 @@
 package Controllers;
 
-import Interfaces.ControllerInterface;
-import Views.DJView;
-import Views.DJViewAppSelector;
 import Adapter.FreeFallAdapter;
+import Interfaces.ControllerInterface;
 import Interfaces.FreeFallModelInterface;
 import Interfaces.ViewInterface;
+import Views.DJView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,18 +22,6 @@ public class FreeFallController implements ControllerInterface{
         view.createControls();
         view.disableStopMenuItem();
         view.enableStartMenuItem();
-    }
-
-    /**
-     * Constructor utilizado en main de DJViewAppSelector
-     * @param model
-     * @param viewName Nombre de la vista
-     */
-    public FreeFallController(FreeFallModelInterface model, String viewName) {
-        if ("DJViewAppSelector".equals(viewName)) {
-            this.model = model;
-            this.initalizeDJVAppSelector();
-        }
     }
 
     public FreeFallController(FreeFallModelInterface model, ViewInterface view) {
@@ -84,16 +71,7 @@ public class FreeFallController implements ControllerInterface{
             JOptionPane.showMessageDialog(null, label);
         }
     }
-    
-    private void initalizeDJVAppSelector(){        
-        this.view = new DJViewAppSelector(this, new FreeFallAdapter(model));
-        this.view.createView();
-        this.view.createControls();
-        this.view.disableStopMenuItem();
-        this.view.enableStartMenuItem();
-        
-    }
-    
+
     private void updateControls(){
         this.view.disableStopMenuItem();
         this.view.enableStartMenuItem();

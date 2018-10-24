@@ -12,6 +12,21 @@ public class FreeFallView extends javax.swing.JFrame implements BPMObserver, Bea
     FreeFallAdapter freeFallAdapter;
     private int initialHigh;
     private double mass;
+    private javax.swing.JLabel elapsedTimeLabel;
+    private javax.swing.JLabel highLabel;
+    private javax.swing.JLabel jLabelGravity;
+    private javax.swing.JLabel jLabelKinetic;
+    private javax.swing.JLabel jLabelMass;
+    private javax.swing.JLabel jLabelPotential;
+    private javax.swing.JLabel jLabelTotalEn;
+    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JProgressBar jProgressBarKinetic;
+    private javax.swing.JProgressBar jProgressBarPotencial;
+    javax.swing.JButton jButtonSetHigh;
+    javax.swing.JButton jButtonStart;
+    javax.swing.JButton jButtonMass;
+    javax.swing.JTextField jTextFieldHigh;
+    javax.swing.JTextField jTextFieldMass;
 
     FreeFallView() {
         this.model = new FreeFallModel();
@@ -26,13 +41,12 @@ public class FreeFallView extends javax.swing.JFrame implements BPMObserver, Bea
     private void initComponents() {
         org.jdesktop.beansbinding.BindingGroup bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        javax.swing.JProgressBar jProgressBar2 = new javax.swing.JProgressBar();
         javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
         jTextFieldHigh = new javax.swing.JTextField();
-        javax.swing.JButton jButtonSetHigh = new javax.swing.JButton();
-        javax.swing.JButton jButtonStart = new javax.swing.JButton();
+        jButtonSetHigh = new javax.swing.JButton();
+        jButtonStart = new javax.swing.JButton();
         jTextFieldMass = new javax.swing.JTextField();
-        javax.swing.JButton jButtonMass = new javax.swing.JButton();
+        jButtonMass = new javax.swing.JButton();
         javax.swing.JPanel jPanel2 = new javax.swing.JPanel();
         highLabel = new javax.swing.JLabel();
         elapsedTimeLabel = new javax.swing.JLabel();
@@ -355,20 +369,6 @@ public class FreeFallView extends javax.swing.JFrame implements BPMObserver, Bea
         java.awt.EventQueue.invokeLater(() -> new FreeFallView().setVisible(true));
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel elapsedTimeLabel;
-    private javax.swing.JLabel highLabel;
-    private javax.swing.JLabel jLabelGravity;
-    private javax.swing.JLabel jLabelKinetic;
-    private javax.swing.JLabel jLabelMass;
-    private javax.swing.JLabel jLabelPotential;
-    private javax.swing.JLabel jLabelTotalEn;
-    private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JProgressBar jProgressBarKinetic;
-    private javax.swing.JProgressBar jProgressBarPotencial;
-    private javax.swing.JTextField jTextFieldHigh;
-    private javax.swing.JTextField jTextFieldMass;
-    // End of variables declaration//GEN-END:variables
 
     @Override
     public void updateBPM() {
@@ -398,16 +398,7 @@ public class FreeFallView extends javax.swing.JFrame implements BPMObserver, Bea
                 int percentPot = ((potencialEn * 100) / model.getTotalEnergy());
                 jProgressBarPotencial.setValue(percentPot);
             }
-        } catch (ArithmeticException e) {
+        } catch (ArithmeticException ignored) {
         }
     }
-
-    void setInitialHigh(int initialHigh) {
-        this.initialHigh = initialHigh;
-    }
-
-    void setMass(double mass) {
-        this.mass = mass;
-    }
-
 }

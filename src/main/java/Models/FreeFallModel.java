@@ -73,7 +73,7 @@ public class FreeFallModel implements FreeFallModelInterface, Runnable{
         while (getAltitude()>GROUND) {
             try {
                 Thread.sleep(TIME_INTERVAL);
-            } catch (Exception e) {}
+            } catch (Exception ignored) {}
             seconds+= 0.1;
             current_altitude= (int) (initialHigh - 0.5*GRAVITY*Math.pow(seconds, 2));
             vel = GRAVITY*seconds;

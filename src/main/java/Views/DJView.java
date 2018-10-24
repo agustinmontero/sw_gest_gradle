@@ -10,13 +10,13 @@ import Observers.BPMObserver;
 import Observers.BeatObserver;
 
 public class DJView implements ActionListener,  BeatObserver, BPMObserver, ViewInterface {
-    BeatModelInterface model;
-    ControllerInterface controller;
+    private BeatModelInterface model;
+    private ControllerInterface controller;
     
-    JFrame viewFrame;
-    JPanel viewPanel;
-    BeatBar beatBar;
-    JLabel bpmOutputLabel;
+    private JFrame viewFrame;
+    private JPanel viewPanel;
+    private BeatBar beatBar;
+    private JLabel bpmOutputLabel;
     private JTextField bpmTextField;
     private JButton setBPMButton;
     private JButton increaseBPMButton;

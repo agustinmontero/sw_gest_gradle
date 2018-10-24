@@ -40,26 +40,19 @@ public class FreeFallModelTest {
 
     @Test
     public void testOn() {
-        System.out.println("on");
         FreeFallModel instance = new FreeFallModel();
         instance.on();
     }
 
     @Test
     public void testOff() {
-        System.out.println("off");
         FreeFallModel instance = new FreeFallModel();
         instance.off();
         int ground = instance.getAltitude();
         assertEquals(ground, 0);
+        assertEquals(instance.getPotencialEn(), 0);
     }
 
-    /*@Test
-     public void testRun() {
-     System.out.println("run");
-     FreeFallModel instance = new FreeFallModel();
-     instance.run();
-     }*/
     @Test
     public void testGetAltitude() {
         System.out.println("getAltitude");
