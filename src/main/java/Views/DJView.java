@@ -10,7 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class DJView implements BeatObserver, BPMObserver, ViewInterface {
-    BeatModelInterface model;
+    private BeatModelInterface model;
     private ControllerInterface controller;
 
     private BeatBar beatBar;

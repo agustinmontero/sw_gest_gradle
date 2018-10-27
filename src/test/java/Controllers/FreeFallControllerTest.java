@@ -27,7 +27,7 @@ public class FreeFallControllerTest {
     public FreeFallControllerTest() {
         model = new FreeFallModel();
         fFallContInstance = new FreeFallController(model);
-        this.HIGH = 250;
+        this.HIGH = 500;
         this.MASS = 2.3;
         GRAV = this.fFallContInstance.model.getGravity();
     }
@@ -68,7 +68,7 @@ public class FreeFallControllerTest {
         fFallContInstance.view.setBPMButton.doClick();
         fFallContInstance.view.startMenuItem.doClick();
         try {
-            Thread.sleep(10000);
+            Thread.sleep(17000);
         } catch (InterruptedException ex) {
             Logger.getLogger(FreeFallController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -88,11 +88,12 @@ public class FreeFallControllerTest {
         fFallContInstance.view.startMenuItem.doClick();
         try {
             Thread.sleep(2000);
+            fFallContInstance.view.stopMenuItem.doClick();
+            Thread.sleep(2000);
         } catch (InterruptedException ex) {
             Logger.getLogger(FreeFallController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        fFallContInstance.view.stopMenuItem.doClick();
-        assertEquals(fFallContInstance.model.getAltitude() , 0);
+        assertNotEquals(fFallContInstance.model.getAltitude() , 0);
         assertNotEquals(fFallContInstance.view.bpmOutputLabel.getText(), "offline");
     }
     
