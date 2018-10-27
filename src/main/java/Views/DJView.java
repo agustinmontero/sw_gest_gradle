@@ -1,5 +1,5 @@
 package Views;
-    
+
 import Interfaces.BeatModelInterface;
 import Interfaces.ControllerInterface;
 import Interfaces.ViewInterface;
@@ -21,45 +21,44 @@ public class DJView implements BeatObserver, BPMObserver, ViewInterface {
     public JButton setBPMButton;
     public JButton increaseBPMButton;
     public JButton decreaseBPMButton;
-    
-    
 
-    public DJView(ControllerInterface controller, BeatModelInterface model) {	
-                this.controller = controller;
-		this.model = model;
-		this.model.registerObserver((BeatObserver)this);
-		this.model.registerObserver((BPMObserver)this);
-                
+
+    public DJView(ControllerInterface controller, BeatModelInterface model) {
+        this.controller = controller;
+        this.model = model;
+        this.model.registerObserver((BeatObserver) this);
+        this.model.registerObserver((BPMObserver) this);
+
     }
 
-    public void removeObservers(){
-        this.model.removeObserver((BeatObserver)this);
-        this.model.removeObserver((BPMObserver)this);
+    public void removeObservers() {
+        this.model.removeObserver((BeatObserver) this);
+        this.model.removeObserver((BPMObserver) this);
     }
-    
+
     public void createView() {
-		// Create all Swing components here
+        // Create all Swing components here
         JPanel viewPanel = new JPanel(new GridLayout(1, 2));
         JFrame viewFrame = new JFrame("View");
         viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         viewFrame.setSize(new Dimension(100, 80));
         bpmOutputLabel = new JLabel("offline", SwingConstants.CENTER);
-		beatBar = new BeatBar();
-		beatBar.setValue(0);
+        beatBar = new BeatBar();
+        beatBar.setValue(0);
         JPanel bpmPanel = new JPanel(new GridLayout(3, 1));
-		bpmPanel.add(beatBar);
+        bpmPanel.add(beatBar);
         bpmPanel.add(bpmOutputLabel);
-        
+
         viewPanel.add(bpmPanel);
         viewFrame.getContentPane().add(viewPanel, BorderLayout.CENTER);
         viewFrame.pack();
         viewFrame.setVisible(true);
-	}
-  
-  
+    }
+
+
     @Override
     public void createControls() {
-		// Create all Swing components here
+        // Create all Swing components here
         JFrame.setDefaultLookAndFeelDecorated(true);
 
         JFrame controlFrame = new JFrame("Control");
@@ -74,7 +73,7 @@ public class DJView implements BeatObserver, BPMObserver, ViewInterface {
         menu.add(startMenuItem);
         startMenuItem.addActionListener(event -> controller.start());
         stopMenuItem = new JMenuItem("Stop");
-        menu.add(stopMenuItem); 
+        menu.add(stopMenuItem);
         stopMenuItem.addActionListener(event -> controller.stop());
         JMenuItem exit = new JMenuItem("Quit");
         exit.addActionListener(event -> System.exit(0));
@@ -86,7 +85,7 @@ public class DJView implements BeatObserver, BPMObserver, ViewInterface {
         bpmTextField = new JTextField(2);
         JLabel bpmLabel = new JLabel("Enter BPM:", SwingConstants.RIGHT);
         setBPMButton = new JButton("Set");
-        setBPMButton.setSize(new Dimension(10,40));
+        setBPMButton.setSize(new Dimension(10, 40));
         increaseBPMButton = new JButton(">>");
         decreaseBPMButton = new JButton("<<");
         setBPMButton.addActionListener(this::setBPMButtonActionPerformed);
@@ -95,8 +94,8 @@ public class DJView implements BeatObserver, BPMObserver, ViewInterface {
 
         JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
 
-		buttonPanel.add(decreaseBPMButton);
-		buttonPanel.add(increaseBPMButton);
+        buttonPanel.add(decreaseBPMButton);
+        buttonPanel.add(increaseBPMButton);
 
         JPanel enterPanel = new JPanel(new GridLayout(1, 2));
         enterPanel.add(bpmLabel);
@@ -106,9 +105,9 @@ public class DJView implements BeatObserver, BPMObserver, ViewInterface {
         insideControlPanel.add(setBPMButton);
         insideControlPanel.add(buttonPanel);
         controlPanel.add(insideControlPanel);
-        
-        bpmLabel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-        bpmOutputLabel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+
+        bpmLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        bpmOutputLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         controlFrame.getRootPane().setDefaultButton(setBPMButton);
         controlFrame.getContentPane().add(controlPanel, BorderLayout.CENTER);
@@ -118,26 +117,26 @@ public class DJView implements BeatObserver, BPMObserver, ViewInterface {
     }
 
     @Override
-	public void enableStopMenuItem() {
-    	stopMenuItem.setEnabled(true);
-	}
+    public void enableStopMenuItem() {
+        stopMenuItem.setEnabled(true);
+    }
 
     @Override
-	public void disableStopMenuItem() {
-    	stopMenuItem.setEnabled(false);
-	}
+    public void disableStopMenuItem() {
+        stopMenuItem.setEnabled(false);
+    }
 
     @Override
-	public void enableStartMenuItem() {
-    	startMenuItem.setEnabled(true);
-	}
+    public void enableStartMenuItem() {
+        startMenuItem.setEnabled(true);
+    }
 
     @Override
-	public void disableStartMenuItem() {
-    	startMenuItem.setEnabled(false);
-	}
+    public void disableStartMenuItem() {
+        startMenuItem.setEnabled(false);
+    }
 
-	private void setBPMButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void setBPMButtonActionPerformed(java.awt.event.ActionEvent evt) {
         int bpm = Integer.parseInt(bpmTextField.getText());
         controller.setBPM(bpm);
     }
@@ -151,23 +150,18 @@ public class DJView implements BeatObserver, BPMObserver, ViewInterface {
     }
 
     public void updateBPM() {
-		if (model != null) {
-			int bpm = model.getBPM();
-			if (bpm == 0) {
-				if (bpmOutputLabel != null) {
-        			bpmOutputLabel.setText("offline");
-				}
-			} else {
-				if (bpmOutputLabel != null) {
-        			bpmOutputLabel.setText("Current BPM: " + model.getBPM());
-				}
-			}
-		}
-	}
-  
+
+        int bpm = model.getBPM();
+        if (bpm == 0) {
+            bpmOutputLabel.setText("offline");
+        } else {
+            bpmOutputLabel.setText("Current BPM: " + model.getBPM());
+        }
+    }
+
     public void updateBeat() {
-		if (beatBar != null) {
-			 beatBar.setValue(100);
-		}
-	}
+        if (beatBar != null) {
+            beatBar.setValue(100);
+        }
+    }
 }
