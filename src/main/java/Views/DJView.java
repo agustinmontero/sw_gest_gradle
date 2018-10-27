@@ -10,14 +10,17 @@ import javax.swing.*;
 import java.awt.*;
 
 public class DJView implements BeatObserver, BPMObserver, ViewInterface {
-    private BeatModelInterface model;
+    BeatModelInterface model;
     private ControllerInterface controller;
 
     private BeatBar beatBar;
-    private JLabel bpmOutputLabel;
-    private JTextField bpmTextField;
-    private JMenuItem startMenuItem;
-    private JMenuItem stopMenuItem;
+    public JLabel bpmOutputLabel;
+    public JTextField bpmTextField;
+    public JMenuItem startMenuItem;
+    public JMenuItem stopMenuItem;
+    public JButton setBPMButton;
+    public JButton increaseBPMButton;
+    public JButton decreaseBPMButton;
     
     
 
@@ -27,6 +30,11 @@ public class DJView implements BeatObserver, BPMObserver, ViewInterface {
 		this.model.registerObserver((BeatObserver)this);
 		this.model.registerObserver((BPMObserver)this);
                 
+    }
+
+    public void removeObservers(){
+        this.model.removeObserver((BeatObserver)this);
+        this.model.removeObserver((BPMObserver)this);
     }
     
     public void createView() {
@@ -77,10 +85,10 @@ public class DJView implements BeatObserver, BPMObserver, ViewInterface {
 
         bpmTextField = new JTextField(2);
         JLabel bpmLabel = new JLabel("Enter BPM:", SwingConstants.RIGHT);
-        JButton setBPMButton = new JButton("Set");
+        setBPMButton = new JButton("Set");
         setBPMButton.setSize(new Dimension(10,40));
-        JButton increaseBPMButton = new JButton(">>");
-        JButton decreaseBPMButton = new JButton("<<");
+        increaseBPMButton = new JButton(">>");
+        decreaseBPMButton = new JButton("<<");
         setBPMButton.addActionListener(this::setBPMButtonActionPerformed);
         increaseBPMButton.addActionListener(this::increaseBPMButtonActionPerformed);
         decreaseBPMButton.addActionListener(this::decreaseBPMButtonActionPerformed);

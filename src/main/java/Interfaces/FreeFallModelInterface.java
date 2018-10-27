@@ -5,8 +5,7 @@ import Observers.BeatObserver;
 
 
 public interface FreeFallModelInterface {
-    
-    void initialize();
+
     void on();
     void off();
     
@@ -15,6 +14,8 @@ public interface FreeFallModelInterface {
     double getGravity();
     void setMass(double m);
     double getMass();
+    int getTotalEnergy();
+    int getKineticEn();
     
     void registerObserver(BeatObserver o);
     void removeObserver(BeatObserver o);

@@ -17,7 +17,7 @@ public class FreeFallViewTest {
     private final double GRAV;
 
     public FreeFallViewTest() {
-        this.HIGH = 950;
+        this.HIGH = 250;
         this.MASS = 2.3;
         freeFallViewInstance = new FreeFallView();
         GRAV = this.freeFallViewInstance.model.getGravity();
@@ -32,7 +32,7 @@ public class FreeFallViewTest {
         this.freeFallViewInstance.freeFallAdapter.off();
     }
 
-    @Test(timeout = 25000)
+    @Test(timeout = 15000)
     public void testMain() {
         FreeFallView.main(null);
         //this.freeFallViewInstance.freeFallAdapter.on();
@@ -43,7 +43,7 @@ public class FreeFallViewTest {
         this.freeFallViewInstance.jButtonStart.doClick();
 
         try {
-            Thread.sleep(20000);
+            Thread.sleep(10000);
         } catch (InterruptedException ex) {
             Logger.getLogger(FreeFallViewTest.class.getName()).log(Level.SEVERE, null, ex);
         }

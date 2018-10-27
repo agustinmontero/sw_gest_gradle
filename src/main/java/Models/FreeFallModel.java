@@ -35,12 +35,9 @@ public class FreeFallModel implements FreeFallModelInterface, Runnable{
         this.seconds = 0;
         this.startTimeMillis = 0;
         this.endTimeMillis = 0;
+        this.mass = 1;
         this.bpmObserver = new ArrayList();
         this.beatObserver = new ArrayList();
-    }
-    
-    @Override
-    public void initialize() {        
     }
 
     @Override
@@ -58,9 +55,9 @@ public class FreeFallModel implements FreeFallModelInterface, Runnable{
         }        
         setAltitude(GROUND);
         this.kineticEn = totalEnergy;
-        this.potentialEn = 0;
-        notifyBPMObserver();
-        notifyBeatObserver();
+        // this.potentialEn = 0;
+        //notifyBPMObserver();
+        //notifyBeatObserver();
     }
     
     @Override
@@ -79,11 +76,11 @@ public class FreeFallModel implements FreeFallModelInterface, Runnable{
             vel = GRAVITY*seconds;
             this.setVelocity(vel);
             this.caclulateEnergy();
-            endTimeMillis = System.currentTimeMillis();            
+            endTimeMillis = System.currentTimeMillis();
+            this.notifyBPMObserver();
+            this.notifyBeatObserver();
             if (current_altitude>0) {
                 this.setAltitude(current_altitude);
-                this.notifyBPMObserver();
-                this.notifyBeatObserver();
             } else{
                 this.off();
             }
@@ -97,16 +94,12 @@ public class FreeFallModel implements FreeFallModelInterface, Runnable{
     
     @Override
     public void setAltitude(int altitude)throws NumberFormatException{
-        try {
-            if (altitude >= 0) {
-                this.altitude = altitude;
-            } else {
-                throw new NumberFormatException();
-            }
-
-        } catch (Exception e) {
-            throw e;
+        if (altitude >= 0) {
+            this.altitude = altitude;
+        } else {
+            throw new NumberFormatException();
         }
+
     }
     
     @Override

@@ -11,8 +11,8 @@ import java.awt.*;
 
 public class FreeFallController implements ControllerInterface{
     
-    private FreeFallModelInterface model;
-    private DJView view;
+    FreeFallModelInterface model;
+    DJView view;
 
     public FreeFallController(FreeFallModelInterface model) {
         this.model = model;        
@@ -34,6 +34,7 @@ public class FreeFallController implements ControllerInterface{
     @Override
     public void stop() {
         model.off();
+        view.removeObservers();
         view.enableStartMenuItem();
         view.disableStopMenuItem();
     }

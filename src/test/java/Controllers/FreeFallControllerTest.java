@@ -2,11 +2,14 @@ package Controllers;
 
 import Models.FreeFallModel;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 
 /**
@@ -17,10 +20,16 @@ public class FreeFallControllerTest {
     
     private FreeFallModel model;
     private FreeFallController fFallContInstance;
+    private final int HIGH;
+    private final double MASS;
+    private final double GRAV;
     
     public FreeFallControllerTest() {
         model = new FreeFallModel();
         fFallContInstance = new FreeFallController(model);
+        this.HIGH = 250;
+        this.MASS = 2.3;
+        GRAV = this.fFallContInstance.model.getGravity();
     }
 
     
@@ -45,14 +54,53 @@ public class FreeFallControllerTest {
     @Test
     public void testSetBPM(){
         int bpm = 20;
-        fFallContInstance.setBPM(bpm);
+        fFallContInstance.view.bpmTextField.setText(String.valueOf(bpm));
+        fFallContInstance.view.setBPMButton.doClick();
+        fFallContInstance.view.increaseBPMButton.doClick();
+        fFallContInstance.view.decreaseBPMButton.doClick();
         assertEquals(bpm, model.getAltitude());
+    }
+
+    @Test(timeout = 25000)
+    public void testDJView() {
+        fFallContInstance.model.setMass(MASS);
+        fFallContInstance.view.bpmTextField.setText(String.valueOf(HIGH));
+        fFallContInstance.view.setBPMButton.doClick();
+        fFallContInstance.view.startMenuItem.doClick();
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(FreeFallController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        int totalEnergy = this.fFallContInstance.model.getTotalEnergy();
+        int kinetic = this.fFallContInstance.model.getKineticEn();
+        int t = (int) (MASS*GRAV*HIGH);
+        assertEquals(t, totalEnergy);
+        assertEquals(t , kinetic);
+        //assertEquals(fFallContInstance.view.bpmOutputLabel.getText(), "offline");
+    }
+
+    @Test(timeout = 25000)
+    public void testDJViewStop() {
+        fFallContInstance.model.setMass(MASS);
+        fFallContInstance.view.bpmTextField.setText(String.valueOf(HIGH));
+        fFallContInstance.view.setBPMButton.doClick();
+        fFallContInstance.view.startMenuItem.doClick();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(FreeFallController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        fFallContInstance.view.stopMenuItem.doClick();
+        assertEquals(fFallContInstance.model.getAltitude() , 0);
+        assertNotEquals(fFallContInstance.view.bpmOutputLabel.getText(), "offline");
     }
     
     @Test
     public void testSetBPM2(){
         int bpm = -20;
-        fFallContInstance.setBPM(bpm);
-        assertNotSame(bpm, model.getAltitude());
+        fFallContInstance.view.bpmTextField.setText(String.valueOf(bpm));
+        fFallContInstance.view.setBPMButton.doClick();
+        assertNotEquals(bpm, model.getAltitude());
     }
 }
