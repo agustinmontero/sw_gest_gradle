@@ -94,7 +94,7 @@ public class FreeFallControllerTest {
             Logger.getLogger(FreeFallController.class.getName()).log(Level.SEVERE, null, ex);
         }
         assertNotEquals(fFallContInstance.model.getAltitude() , 0);
-        assertNotEquals(fFallContInstance.view.bpmOutputLabel.getText(), "offline");
+        assertEquals(fFallContInstance.view.bpmOutputLabel.getText(), "offline");
     }
     
     @Test

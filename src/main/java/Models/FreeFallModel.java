@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import Observers.BPMObserver;
 import Observers.BeatObserver;
 import Interfaces.FreeFallModelInterface;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class FreeFallModel implements FreeFallModelInterface, Runnable{
     
@@ -26,6 +27,7 @@ public class FreeFallModel implements FreeFallModelInterface, Runnable{
     private int altitude;
     private int initialHigh;
     private Thread thread;
+    private final ReentrantLock rLock;
 
     public FreeFallModel() {
         this.GROUND = 0;
@@ -38,6 +40,7 @@ public class FreeFallModel implements FreeFallModelInterface, Runnable{
         this.mass = 1;
         this.bpmObserver = new ArrayList();
         this.beatObserver = new ArrayList();
+        rLock = new ReentrantLock();
     }
 
     @Override
@@ -55,9 +58,14 @@ public class FreeFallModel implements FreeFallModelInterface, Runnable{
         }        
         setAltitude(GROUND);
         this.kineticEn = totalEnergy;
-        // this.potentialEn = 0;
-        //notifyBPMObserver();
-        //notifyBeatObserver();
+        this.potentialEn = 0;
+        rLock.lock();
+        try {
+            notifyBPMObserver();
+            notifyBeatObserver();
+        } finally {
+            rLock.unlock();
+        }
     }
     
     @Override
@@ -77,13 +85,19 @@ public class FreeFallModel implements FreeFallModelInterface, Runnable{
             this.setVelocity(vel);
             this.caclulateEnergy();
             endTimeMillis = System.currentTimeMillis();
-            this.notifyBPMObserver();
-            this.notifyBeatObserver();
             if (current_altitude>0) {
                 this.setAltitude(current_altitude);
             } else{
                 this.off();
             }
+            rLock.lock();
+            try {
+                notifyBPMObserver();
+                notifyBeatObserver();
+            } finally {
+                rLock.unlock();
+            }
+
         }
     }
     

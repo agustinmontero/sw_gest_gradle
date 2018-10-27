@@ -160,8 +160,6 @@ public class DJView implements BeatObserver, BPMObserver, ViewInterface {
     }
 
     public void updateBeat() {
-        if (beatBar != null) {
-            beatBar.setValue(100);
-        }
+        beatBar.setValue(100);
     }
 }
