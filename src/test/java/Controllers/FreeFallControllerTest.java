@@ -77,7 +77,7 @@ public class FreeFallControllerTest {
         int t = (int) (MASS*GRAV*HIGH);
         assertEquals(t, totalEnergy);
         assertEquals(t , kinetic);
-        //assertEquals(fFallContInstance.view.bpmOutputLabel.getText(), "offline");
+//        assertEquals(fFallContInstance.view.bpmOutputLabel.getText(), "offline");
     }
 
     @Test(timeout = 25000)
@@ -94,7 +94,7 @@ public class FreeFallControllerTest {
             Logger.getLogger(FreeFallController.class.getName()).log(Level.SEVERE, null, ex);
         }
         assertNotEquals(fFallContInstance.model.getAltitude() , 0);
-        assertEquals(fFallContInstance.view.bpmOutputLabel.getText(), "offline");
+//        assertEquals(fFallContInstance.view.bpmOutputLabel.getText(), "offline");
     }
     
     @Test
