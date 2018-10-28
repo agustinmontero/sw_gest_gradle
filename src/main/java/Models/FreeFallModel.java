@@ -53,7 +53,7 @@ public class FreeFallModel implements FreeFallModelInterface, Runnable{
 
     @Override
     public void off() {
-        if(thread.isAlive()){
+        if(thread != null){
             thread.interrupt();
         }        
         setAltitude(GROUND);
