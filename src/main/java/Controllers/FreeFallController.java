@@ -26,6 +26,7 @@ public class FreeFallController implements ControllerInterface{
 
     @Override
     public void start() {
+        view.registerObservers();
         model.on();
         view.disableStartMenuItem();
         view.enableStopMenuItem();

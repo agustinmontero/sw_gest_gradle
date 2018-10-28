@@ -10,6 +10,7 @@ public class FreeFallTestDrive {
     public static void main(String[] args) {
         FreeFallModel freeFmodel = new FreeFallModel();
         ControllerInterface controller = new FreeFallController(freeFmodel);
+        controller.increaseBPM();
     }
     
 }

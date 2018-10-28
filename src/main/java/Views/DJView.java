@@ -26,14 +26,16 @@ public class DJView implements BeatObserver, BPMObserver, ViewInterface {
     public DJView(ControllerInterface controller, BeatModelInterface model) {
         this.controller = controller;
         this.model = model;
-        this.model.registerObserver((BeatObserver) this);
-        this.model.registerObserver((BPMObserver) this);
-
     }
 
     public void removeObservers() {
         this.model.removeObserver((BeatObserver) this);
         this.model.removeObserver((BPMObserver) this);
+    }
+
+    public void registerObservers(){
+        this.model.registerObserver((BeatObserver) this);
+        this.model.registerObserver((BPMObserver) this);
     }
 
     public void createView() {
